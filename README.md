@@ -19,7 +19,6 @@ Run these from this folder:
 - `src/pages/` contains the home, about, contact, services, and projects routes. Service and project detail pages are generated from the data modules.
 - `src/data/` is the source of business, service, and project content.
 - `src/components/` contains shared Astro UI and the two small browser scripts for the menu, project filters, and quote form.
-- `public/img/` holds source photography. In production, `Img.astro` routes images through Netlify Image CDN; local development uses the original files.
-- `public/__forms.html` registers the quote form with Netlify. Keep its field names in sync with `QuoteForm.astro`.
+- `public/img/` holds source photography, served directly as static files.
 
-Netlify publishes the static `dist/` directory. No React or TanStack runtime is used in this project.
+Upload the generated `dist/` directory to a static web host. Quote requests open a pre-addressed email draft. No React or TanStack runtime is used in this project.
