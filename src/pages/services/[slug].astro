@@ -3,6 +3,7 @@ import { ArrowLeft } from '@lucide/astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import CtaBand from '../../components/CtaBand.astro'
 import Eyebrow from '../../components/Eyebrow.astro'
+import FacebookVideo from '../../components/FacebookVideo.astro'
 import Img from '../../components/Img.astro'
 import ProjectCard from '../../components/ProjectCard.astro'
 import QuoteForm from '../../components/QuoteForm.astro'
@@ -22,7 +23,7 @@ const related = projects.filter((project) => project.serviceSlug === service.slu
 <BaseLayout title={`${service.name} — ${site.name}`} description={service.blurb}>
   <div class="mx-auto max-w-7xl px-5 pt-10 lg:px-8"><a href="/services" class="tag inline-flex items-center gap-2 text-ink-45 transition-colors hover:text-ochre"><ArrowLeft class="h-3.5 w-3.5" stroke-width={2.5} aria-hidden="true" />All services</a></div>
   <section class="mx-auto grid max-w-7xl gap-10 px-5 py-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-16 lg:px-8 lg:py-16">
-    <div><Eyebrow>Home improvements</Eyebrow><h1 class="text-[clamp(2.5rem,6vw,4.5rem)]">{service.name}</h1><p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-70">{service.blurb}</p>{service.image && <figure class="mt-9 border-2 border-ink shadow-lift"><Img src={service.image} alt={service.name} width={900} ratio={4 / 3} priority sizes="(max-width: 1024px) 100vw, 48vw" className="h-full w-full object-cover" /></figure>}
+    <div><Eyebrow>Home improvements</Eyebrow><h1 class="text-[clamp(2.5rem,6vw,4.5rem)]">{service.name}</h1><p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-70">{service.blurb}</p>{service.image ? <figure class="mt-9 border-2 border-ink shadow-lift"><Img src={service.image} alt={service.name} width={900} ratio={4 / 3} priority sizes="(max-width: 1024px) 100vw, 48vw" className="h-full w-full object-cover" /></figure> : service.videoUrl ? <figure class="relative mt-9 aspect-video overflow-hidden border-2 border-ink bg-spruce shadow-lift"><FacebookVideo url={service.videoUrl} title={`${service.name} video from Leading Edge Finishings`} /></figure> : null}
       {related.length > 0 && <div class="mt-12"><Eyebrow>From the photo gallery</Eyebrow><div class="mt-6 grid gap-6 sm:grid-cols-2">{related.map((project) => <ProjectCard project={project} />)}</div></div>}
     </div>
     <div class="lg:sticky lg:top-28 lg:self-start"><h2 class="text-3xl">Ask about your project</h2><p class="mt-3 text-ink-70">Send a few details or call/text {site.phone}.</p><div class="mt-7"><QuoteForm preselect={service.name} /></div></div>

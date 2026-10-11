@@ -1,0 +1,29 @@
+---
+interface Props {
+  url: string
+  title: string
+}
+
+const { url, title } = Astro.props
+const embedUrl = `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=560`
+---
+
+<iframe
+  class="absolute inset-0 h-full w-full"
+  src={embedUrl}
+  title={title}
+  width="560"
+  height="315"
+  style="border:0;overflow:hidden"
+  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+  allowfullscreen
+  loading="lazy"
+></iframe>
+
+<style>
+  iframe {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+  }
+</style>
