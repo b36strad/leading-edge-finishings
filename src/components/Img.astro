@@ -10,21 +10,10 @@ interface Props {
 }
 
 const { src, alt, width, ratio, className = '', priority = false, sizes = `${width}px` } = Astro.props
-const url = (requestedWidth: number) => {
-  const params = new URLSearchParams({ url: src, w: String(requestedWidth), fm: 'webp', q: '74' })
-  if (ratio) {
-    params.set('h', String(Math.round(requestedWidth / ratio)))
-    params.set('fit', 'cover')
-  }
-  return `/.netlify/images?${params.toString()}`
-}
-const widths = [width, Math.round(width * 1.5), width * 2]
-const srcSet = import.meta.env.DEV ? undefined : widths.map((itemWidth) => `${url(itemWidth)} ${itemWidth}w`).join(', ')
 ---
 
 <img
-  src={import.meta.env.DEV ? src : url(width)}
-  srcset={srcSet}
+  src={src}
   sizes={sizes}
   alt={alt}
   width={width}
