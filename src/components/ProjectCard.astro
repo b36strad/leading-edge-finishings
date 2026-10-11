@@ -1,0 +1,27 @@
+---
+import { ArrowUpRight } from '@lucide/astro'
+import type { Project } from '../data/projects'
+import { serviceBySlug } from '../data/services'
+import Img from './Img.astro'
+
+interface Props { project: Project; wide?: boolean }
+const { project, wide = false } = Astro.props
+const service = serviceBySlug(project.serviceSlug)
+---
+<article data-project-card data-service={project.serviceSlug}>
+  <a href={`/projects/${project.slug}`} class="group flex h-full flex-col border-2 border-ink bg-chalk transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+    <div class="grid grid-cols-2 overflow-hidden border-b-2 border-ink bg-paper-2">
+      <div class="relative aspect-[4/3] min-w-0 border-r border-ink/20"><Img src={project.beforeImage} alt={`Before: ${project.title}`} width={wide ? 900 : 640} sizes="(max-width: 768px) 50vw, 20vw" className="h-full w-full object-contain" /><span class="absolute bottom-0 left-0 bg-ink/90 px-2 py-1 font-mono text-[0.6rem] tracking-wider text-chalk">BEFORE</span></div>
+      <div class="relative aspect-[4/3] min-w-0"><Img src={project.afterImage} alt={`After: ${project.title}`} width={wide ? 900 : 640} sizes="(max-width: 768px) 50vw, 20vw" className="h-full w-full object-contain" /><span class="absolute bottom-0 left-0 bg-ochre px-2 py-1 font-mono text-[0.6rem] tracking-wider text-chalk">AFTER</span></div>
+    </div>
+    <div class="flex flex-1 flex-col p-6">
+      <p class="tag text-ink-45">{service?.name}</p>
+      <h3 class="mt-3 text-2xl leading-[1.05]">{project.title}</h3>
+      <p class="mt-3 flex-1 text-[0.95rem] leading-relaxed text-ink-70">{project.summary}</p>
+      <div class="mt-6 flex items-end justify-between border-t border-ink/15 pt-4">
+        <span class="font-mono text-xs text-ink-45">Project photos</span>
+        <span class="flex items-center gap-1.5 font-display text-sm font-bold text-ochre">View project<ArrowUpRight class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" stroke-width={2.5} aria-hidden="true" /></span>
+      </div>
+    </div>
+  </a>
+</article>

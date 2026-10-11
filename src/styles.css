@@ -1,0 +1,71 @@
+@import "tailwindcss" source("../");
+
+@theme {
+  --color-paper: #f3ede2;
+  --color-paper-2: #e8dfd0;
+  --color-paper-3: #ded2bf;
+  --color-ink: #1b1916;
+  --color-ink-70: #46403a;
+  --color-ink-45: #7a7168;
+  --color-ochre: #b4551d;
+  --color-ochre-bright: #d2671f;
+  --color-spruce: #223b38;
+  --color-spruce-2: #2e4f4b;
+  --color-chalk: #fbf8f2;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --shadow-lift: 0 1px 0 0 rgba(27, 25, 22, 0.12), 0 18px 40px -24px rgba(27, 25, 22, 0.45);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+::selection { background: var(--color-ochre); color: var(--color-chalk); }
+*:focus-visible { outline: 2px solid var(--color-ochre); outline-offset: 3px; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.ruled {
+  background-image: linear-gradient(to top, var(--color-ochre) 0 0.18em, transparent 0.18em);
+  padding-inline: 0.04em;
+}
+.rise { animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes rise {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to { opacity: 1; transform: none; }
+}
+.marquee { animation: marquee 38s linear infinite; }
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise, .marquee { animation: none; }
+  html { scroll-behavior: auto; }
+}

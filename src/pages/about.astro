@@ -1,0 +1,15 @@
+---
+import { BadgeCheck, MapPin } from '@lucide/astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import CtaBand from '../components/CtaBand.astro'
+import Eyebrow from '../components/Eyebrow.astro'
+import Img from '../components/Img.astro'
+import { site } from '../data/site'
+
+const description = 'Learn about Leading Edge Finishings, a licensed and insured home-improvement company established in 2019 and based in Woodbury, NJ.'
+---
+<BaseLayout title={`About — ${site.name}`} description={description}>
+  <section class="border-b-2 border-ink"><div class="mx-auto grid max-w-7xl gap-12 px-5 py-16 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-16 lg:px-8 lg:py-24"><div><Eyebrow>Who we are</Eyebrow><h1 class="text-[clamp(2.5rem,6vw,4.5rem)]">A contemporary side of home improvement.</h1><p class="mt-7 max-w-xl text-lg leading-relaxed text-ink-70">Leading Edge Finishings, LLC is a home-improvement company based in Woodbury, New Jersey. Its public profile describes its work as interior and exterior home improvements and lists the business as licensed and insured.</p><div class="mt-8 flex flex-wrap gap-x-8 gap-y-4"><p class="flex items-center gap-3"><MapPin class="h-5 w-5 text-ochre" aria-hidden="true" />{site.address}</p><p class="flex items-center gap-3"><BadgeCheck class="h-5 w-5 text-ochre" aria-hidden="true" />{site.license}</p></div><div class="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">{site.stats.map((stat) => <div><p class="font-display text-3xl font-extrabold leading-none text-ochre">{stat.value}</p><p class="mt-2 text-xs leading-snug text-ink-70">{stat.label}</p></div>)}</div></div><figure class="border-2 border-ink shadow-lift"><Img src="/img/facebook-basement-before-after.jpg" alt="Before-and-after basement improvement with a completed media wall." width={820} ratio={4 / 3} priority sizes="(max-width: 1024px) 100vw, 45vw" className="h-full w-full object-cover" /><figcaption class="border-t-2 border-ink bg-chalk px-4 py-3 font-mono text-[0.7rem] text-ink-45">Basement project photo shared on Facebook</figcaption></figure></div></section>
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-24"><div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]"><div><Eyebrow>Company details</Eyebrow><h2 class="text-4xl sm:text-5xl">Local home improvement, in a range of forms.</h2></div><div class="space-y-5 text-lg leading-relaxed text-ink-70"><p>The company was established in {site.founded}. Its Facebook page features bathroom and basement project photos, along with an announcement for custom holiday-light installation.</p><p>For current availability and the right scope for your project, contact the team directly.</p><a href={site.facebookUrl} target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 font-display font-bold text-ochre underline decoration-ochre/40 underline-offset-4">Visit the Facebook page</a></div></div></section>
+  <CtaBand heading="Let's talk about your home." body="Call or text Leading Edge Finishings in Woodbury, New Jersey." />
+</BaseLayout>

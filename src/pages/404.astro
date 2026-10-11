@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/Button.astro'
+import { site } from '../data/site'
+---
+<BaseLayout title={`Page not found — ${site.name}`}>
+  <div class="mx-auto flex max-w-2xl flex-col items-start px-5 py-32"><p class="tag text-ink-45">Error 404</p><h1 class="mt-4 text-5xl sm:text-6xl">That page is behind a <span class="ruled">wall</span> somewhere.</h1><p class="mt-5 text-lg leading-relaxed text-ink-70">We could not find it. The work we actually do is all on the services page, and the fastest way to reach a person is {site.phone}.</p><div class="mt-8 flex flex-wrap gap-4"><Button href="/services">See what we do</Button><Button href="/contact" variant="outline">Get a quote</Button></div></div>
+</BaseLayout>

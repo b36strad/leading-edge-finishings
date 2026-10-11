@@ -1,0 +1,23 @@
+---
+import { Phone } from '@lucide/astro'
+import Button from './Button.astro'
+import { site } from '../data/site'
+
+interface Props { heading?: string; body?: string }
+const { heading = 'Tell us about your project.', body = 'Call, text, or send a project request to connect with Leading Edge Finishings.' } = Astro.props
+---
+<section class="border-y-2 border-ink bg-ochre text-chalk">
+  <div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-16 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+    <div class="max-w-xl">
+      <p class="tag text-chalk/70">Woodbury, New Jersey</p>
+      <h2 class="mt-4 text-4xl sm:text-5xl">{heading}</h2>
+      <p class="mt-4 leading-relaxed text-chalk/90">{body}</p>
+    </div>
+    <div class="flex shrink-0 flex-wrap items-center gap-4">
+      <Button href="/contact" variant="chalk">Contact the team</Button>
+      <a href={site.phoneHref} class="inline-flex items-center gap-2.5 border-2 border-chalk/60 px-6 py-3.5 font-mono text-sm font-medium transition-colors hover:border-chalk hover:bg-chalk/10">
+        <Phone class="h-4 w-4" stroke-width={2.2} aria-hidden="true" />{site.phone}
+      </a>
+    </div>
+  </div>
+</section>

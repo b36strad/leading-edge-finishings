@@ -1,0 +1,26 @@
+---
+import { ArrowLeft, ArrowUpRight } from '@lucide/astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Button from '../../components/Button.astro'
+import Eyebrow from '../../components/Eyebrow.astro'
+import Img from '../../components/Img.astro'
+import { projects } from '../../data/projects'
+import type { Project } from '../../data/projects'
+import { serviceBySlug } from '../../data/services'
+import { site } from '../../data/site'
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }))
+}
+
+interface Props { project: Project }
+const { project } = Astro.props
+const service = serviceBySlug(project.serviceSlug)
+const next = projects[(projects.findIndex((item) => item.slug === project.slug) + 1) % projects.length]
+---
+<BaseLayout title={`${project.title} — ${site.name}`} description={project.summary}>
+  <div class="mx-auto max-w-7xl px-5 pt-10 lg:px-8"><a href="/projects" class="tag inline-flex items-center gap-2 text-ink-45 transition-colors hover:text-ochre"><ArrowLeft class="h-3.5 w-3.5" stroke-width={2.5} aria-hidden="true" />All projects</a></div>
+  <section class="mx-auto max-w-7xl px-5 py-10 lg:px-8"><p class="tag text-ink-45">{service?.name} &middot; Company project gallery</p><h1 class="mt-6 max-w-4xl text-[clamp(2.5rem,6.2vw,4.75rem)]">{project.title}</h1><p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-70">{project.summary}</p><div class="mt-10 grid gap-5 sm:grid-cols-2"><figure class="border-2 border-ink shadow-lift"><div class="relative aspect-[4/3] bg-paper-2"><Img src={project.beforeImage} alt={`Before: ${project.title}`} width={900} priority sizes="(max-width: 640px) 100vw, 50vw" className="h-full w-full object-contain" /></div><figcaption class="border-t-2 border-ink bg-chalk px-4 py-3 font-mono text-xs text-ink-45">Before &middot; {project.title}</figcaption></figure><figure class="border-2 border-ink shadow-lift"><div class="relative aspect-[4/3] bg-paper-2"><Img src={project.afterImage} alt={`After: ${project.title}`} width={900} priority sizes="(max-width: 640px) 100vw, 50vw" className="h-full w-full object-contain" /></div><figcaption class="border-t-2 border-ink bg-chalk px-4 py-3 font-mono text-xs text-ink-45">After &middot; {project.title}</figcaption></figure></div></section>
+  <section class="border-y-2 border-ink bg-paper-2"><div class="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-14 lg:flex-row lg:items-center lg:justify-between lg:px-8"><div><Eyebrow>Planning a similar project?</Eyebrow><h2 class="max-w-xl text-3xl sm:text-4xl">Talk with Leading Edge Finishings about your home.</h2></div><div class="flex shrink-0 flex-wrap gap-4"><Button href="/contact">Contact the team</Button>{service && <Button href={`/services/${service.slug}`} variant="outline">{service.name}</Button>}</div></div></section>
+  <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8"><a href={`/projects/${next.slug}`} class="group flex flex-col gap-2 border-2 border-ink/15 p-7 transition-colors hover:border-ink hover:bg-chalk sm:flex-row sm:items-center sm:justify-between"><div><p class="tag text-ink-45">Next project</p><p class="mt-2 font-display text-2xl font-bold group-hover:text-ochre">{next.title}</p></div><ArrowUpRight class="h-7 w-7 shrink-0 text-ochre transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" stroke-width={2.2} aria-hidden="true" /></a></div>
+</BaseLayout>

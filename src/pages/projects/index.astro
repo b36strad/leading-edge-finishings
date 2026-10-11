@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import CtaBand from '../../components/CtaBand.astro'
+import Eyebrow from '../../components/Eyebrow.astro'
+import ProjectCard from '../../components/ProjectCard.astro'
+import { projects } from '../../data/projects'
+import { services } from '../../data/services'
+import { site } from '../../data/site'
+
+const description = 'Ten home-improvement projects with before-and-after photos from the Leading Edge Finishings portfolio.'
+const used = services.filter((service) => projects.some((project) => project.serviceSlug === service.slug))
+---
+<BaseLayout title={`Projects — ${site.name}`} description={description}>
+  <section class="border-b-2 border-ink bg-paper-2"><div class="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-24"><Eyebrow>Project gallery</Eyebrow><h1 class="max-w-3xl text-[clamp(2.5rem,6vw,4.5rem)]">Ten before-and-after projects.</h1><p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-70">These paired photos come from the company's original portfolio. Project names follow the captions published with each image.</p></div></section>
+  <div class="mx-auto max-w-7xl px-5 py-14 lg:px-8 lg:py-20">
+    <div class="flex flex-wrap items-center gap-2.5 border-b-2 border-ink/10 pb-8"><span class="tag mr-2 text-ink-45">Filter</span><button type="button" data-filter="all" aria-pressed="true" class="border-2 border-ink bg-ink px-4 py-2 font-display text-sm font-bold text-chalk transition-all">Everything</button>{used.map((service) => <button type="button" data-filter={service.slug} aria-pressed="false" class="border-2 border-ink/20 px-4 py-2 font-display text-sm font-bold text-ink-70 transition-all hover:border-ink hover:text-ink">{service.name}</button>)}</div>
+    <div data-project-grid class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">{projects.map((project) => <ProjectCard project={project} />)}</div>
+    <div data-project-empty hidden class="mt-12 border-2 border-dashed border-ink/25 p-14 text-center"><h2 class="text-2xl">No photos in this category yet</h2><p class="mx-auto mt-3 max-w-md leading-relaxed text-ink-70">Contact the team to ask about a project type.</p></div>
+  </div>
+  <CtaBand heading="Planning a similar update?" body="Call or text the team to discuss the project you have in mind." />
+</BaseLayout>
+
+<script>
+  const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter]')
+  const projectCards = document.querySelectorAll<HTMLElement>('[data-project-card]')
+  const emptyState = document.querySelector<HTMLElement>('[data-project-empty]')
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter
+      let visibleCount = 0
+      filterButtons.forEach((item) => {
+        const active = item === button
+        item.setAttribute('aria-pressed', String(active))
+        item.classList.toggle('border-ink', active)
+        item.classList.toggle('bg-ink', active)
+        item.classList.toggle('text-chalk', active)
+        item.classList.toggle('border-ink/20', !active)
+        item.classList.toggle('text-ink-70', !active)
+      })
+      projectCards.forEach((card) => {
+        const visible = filter === 'all' || card.dataset.service === filter
+        card.hidden = !visible
+        if (visible) visibleCount += 1
+      })
+      if (emptyState) emptyState.hidden = visibleCount > 0
+    })
+  })
+</script>

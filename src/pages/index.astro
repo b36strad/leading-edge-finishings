@@ -1,0 +1,68 @@
+---
+import { ArrowRight, BadgeCheck, ExternalLink, MapPin } from '@lucide/astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/Button.astro'
+import CtaBand from '../components/CtaBand.astro'
+import Eyebrow from '../components/Eyebrow.astro'
+import Faq from '../components/Faq.astro'
+import Img from '../components/Img.astro'
+import ProjectCard from '../components/ProjectCard.astro'
+import Rule from '../components/Rule.astro'
+import { site } from '../data/site'
+import { services } from '../data/services'
+import { projects } from '../data/projects'
+
+const description = 'Leading Edge Finishings is a licensed and insured home-improvement company in Woodbury, NJ, established in 2019.'
+---
+
+<BaseLayout description={description}>
+  <section class="relative overflow-hidden border-b-2 border-ink">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 opacity-[0.55]" style="background-image: linear-gradient(var(--color-paper-3) 1px, transparent 1px), linear-gradient(90deg, var(--color-paper-3) 1px, transparent 1px); background-size: 58px 58px; mask-image: radial-gradient(120% 90% at 20% 0%, #000 20%, transparent 75%); -webkit-mask-image: radial-gradient(120% 90% at 20% 0%, #000 20%, transparent 75%);"></div>
+    <div class="mx-auto grid max-w-7xl items-center gap-y-12 px-5 pb-20 pt-14 lg:grid-cols-12 lg:gap-x-10 lg:px-8 lg:pb-28 lg:pt-20">
+      <div class="relative z-10 lg:col-span-6">
+        <p class="tag rise flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-45"><span>{site.license}</span><span aria-hidden="true" class="h-1 w-1 bg-ochre"></span><span>{site.address}</span><span aria-hidden="true" class="h-1 w-1 bg-ochre"></span><span>Est. {site.founded}</span></p>
+        <h1 class="rise mt-6 text-[clamp(2.75rem,7.2vw,5.25rem)]">{site.shortName}</h1>
+        <p class="rise mt-4 max-w-lg font-display text-2xl font-bold text-ochre" style="animation-delay: 80ms">{site.tagline}</p>
+        <p class="rise mt-6 max-w-lg text-lg leading-relaxed text-ink-70 sm:text-xl" style="animation-delay: 160ms">Interior and exterior home improvements, with bathroom and basement projects featured in the company gallery. Custom holiday-light installation is also available seasonally.</p>
+        <div class="rise mt-9 flex flex-wrap items-center gap-4" style="animation-delay: 240ms">
+          <Button href="/contact">Contact the team<ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></Button>
+          <Button href="/projects" variant="outline">View project photos</Button>
+        </div>
+        <ul class="rise mt-10 flex flex-wrap gap-x-7 gap-y-3 font-mono text-xs text-ink-70" style="animation-delay: 320ms">
+          <li class="flex items-center gap-2"><BadgeCheck class="h-4 w-4 text-ochre" stroke-width={2.2} aria-hidden="true" />Licensed &amp; insured</li>
+          <li class="flex items-center gap-2"><MapPin class="h-4 w-4 text-ochre" stroke-width={2.2} aria-hidden="true" />Woodbury, New Jersey</li>
+        </ul>
+      </div>
+      <div class="relative lg:col-span-6">
+        <div class="relative border-2 border-ink bg-paper-2 shadow-lift">
+          <Img src="/img/facebook-basement-before-after.jpg" alt="Before-and-after basement improvement showing a finished slatted media wall and mounted television." width={880} ratio={4 / 3} priority sizes="(max-width: 1024px) 100vw, 46vw" className="h-full w-full object-cover" />
+          <div class="absolute inset-x-0 bottom-0 flex flex-wrap items-center gap-x-5 gap-y-1 bg-ink/92 px-4 py-2.5 font-mono text-[0.65rem] tracking-wider text-paper-3 backdrop-blur-sm"><span>BASEMENT MEDIA WALL</span><span class="text-ochre-bright">BEFORE &amp; AFTER</span><span>FACEBOOK GALLERY</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="overflow-hidden border-b-2 border-ink bg-spruce py-3.5"><div class="marquee flex w-max gap-10 whitespace-nowrap">{[0, 1].map((dup) => <ul class="flex shrink-0 items-center gap-10" aria-hidden={dup === 1}>{site.serviceArea.map((place) => <li class="tag flex items-center gap-10 text-paper-3">{place}<span class="h-1.5 w-1.5 shrink-0 rotate-45 bg-ochre-bright" aria-hidden="true"></span></li>)}</ul>)}</div></div>
+
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28">
+    <div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end"><div><Eyebrow>Home improvement</Eyebrow><h2 class="max-w-2xl text-4xl sm:text-5xl lg:text-6xl">Interior and exterior work, plus seasonal lighting.</h2></div><a href="/services" class="group inline-flex items-center gap-2 font-display text-lg font-bold text-ochre">Explore services<ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a></div>
+    <Rule className="mt-10" />
+    <div class="mt-12 grid gap-5 md:grid-cols-2">{services.map((service) => <a href={`/services/${service.slug}`} class="group grid min-h-36 grid-cols-[1fr_auto] gap-5 border-2 border-ink bg-chalk p-6 transition-colors hover:bg-paper-2 sm:p-8"><div><p class="tag text-ink-45">{service.short}</p><h3 class="mt-3 text-2xl transition-colors group-hover:text-ochre sm:text-3xl">{service.name}</h3></div><ArrowRight class="mt-1 h-5 w-5 text-ochre transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a>)}</div>
+  </section>
+
+  <section class="border-y-2 border-ink bg-spruce text-paper"><div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-8 lg:py-20">
+    <div><Eyebrow tone="chalk">Seasonal service</Eyebrow><h2 class="text-4xl text-paper sm:text-5xl">Custom holiday lighting.</h2><p class="mt-5 max-w-lg leading-relaxed text-paper-3">See the holiday-light installation Reel shared by Leading Edge Finishings.</p><a href="/services/holiday-lighting" class="group mt-7 inline-flex items-center gap-2 font-display font-bold text-ochre-bright">About holiday lighting<ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a></div>
+    <div class="flex justify-center lg:justify-end"><div id="fb-root"></div><div class="fb-video" data-href={site.facebookVideoUrl} data-width="500" data-allowfullscreen="true" data-show-text="false"><div class="fb-xfbml-parse-ignore"><blockquote cite={site.facebookVideoUrl}><a href={site.facebookVideoUrl}>Watch the Leading Edge Finishings holiday-lighting Reel</a></blockquote></div></div></div>
+  </div><p class="mx-auto max-w-7xl px-5 pb-5 text-sm text-paper-3 lg:px-8">Trouble viewing? <a href={site.facebookVideoUrl} target="_blank" rel="noreferrer" class="underline decoration-ochre-bright underline-offset-4">Open the video on Facebook</a>.</p></section>
+  <script is:inline async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0"></script>
+
+  <section class="border-y-2 border-ink bg-paper-2"><div class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end"><div><Eyebrow>Project gallery</Eyebrow><h2 class="max-w-2xl text-4xl sm:text-5xl lg:text-6xl">Before and after, from the portfolio.</h2><p class="mt-5 max-w-xl leading-relaxed text-ink-70">Room and outdoor projects shown with their original paired photos.</p></div><a href="/projects" class="group inline-flex items-center gap-2 font-display text-lg font-bold text-ochre">All project photos<ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a></div><div class="mt-12 grid gap-6 md:grid-cols-2">{projects.slice(0, 4).map((project) => <ProjectCard project={project} />)}</div></div></section>
+
+  <section class="border-b-2 border-ink bg-spruce text-paper"><div class="mx-auto grid max-w-7xl gap-14 px-5 py-20 lg:grid-cols-[1fr_1fr] lg:px-8 lg:py-28">
+    <div><Eyebrow tone="chalk">About Leading Edge Finishings</Eyebrow><h2 class="text-4xl text-paper sm:text-5xl">A local home-improvement company, established in 2019.</h2><p class="mt-6 max-w-xl leading-relaxed text-paper-3">Based in Woodbury, New Jersey, the company describes its work as interior and exterior home improvements. Its public profile lists the business as licensed and insured.</p><a href="/about" class="group mt-7 inline-flex items-center gap-2 font-display font-bold text-ochre-bright">More about the company<ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a></div>
+    <div class="grid grid-cols-2 gap-5 sm:grid-cols-3">{site.stats.map((stat) => <div class="border border-paper/20 p-5"><p class="font-display text-3xl font-extrabold leading-none text-ochre-bright">{stat.value}</p><p class="mt-2 text-xs leading-snug text-paper-3">{stat.label}</p></div>)}<a href={site.reviewsUrl} target="_blank" rel="noreferrer" class="col-span-2 flex items-center gap-4 border border-paper/20 p-5 transition-colors hover:bg-spruce-2 sm:col-span-3"><ExternalLink class="h-7 w-7 shrink-0 text-ochre-bright" aria-hidden="true" /><span class="text-sm leading-relaxed text-paper-3">Read the recommendations on Facebook</span><ArrowRight class="ml-auto h-4 w-4 shrink-0 text-ochre-bright" aria-hidden="true" /></a></div>
+  </div></section>
+
+  <section class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><Faq limit={3} /></section>
+  <CtaBand heading="Have a project in mind?" body="Call or text the team, or send a project request to get in touch." />
+</BaseLayout>

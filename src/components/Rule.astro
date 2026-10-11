@@ -1,0 +1,8 @@
+---
+interface Props { className?: string }
+const { className = '' } = Astro.props
+---
+<div class={`flex items-center gap-1 ${className}`} aria-hidden>
+  <span class="h-0.5 w-14 bg-ochre"></span>
+  <span class="h-px flex-1 bg-ink/15"></span>
+</div>

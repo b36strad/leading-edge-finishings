@@ -1,0 +1,8 @@
+---
+interface Props { tone?: 'ink' | 'chalk' }
+const { tone = 'ink' } = Astro.props
+---
+<p class={`tag mb-5 flex items-center gap-3 ${tone === 'chalk' ? 'text-paper-3' : 'text-ink-45'}`}>
+  <span aria-hidden class={`inline-block h-px w-8 ${tone === 'chalk' ? 'bg-paper-3/60' : 'bg-ink-45/50'}`}></span>
+  <slot />
+</p>
