@@ -1,9 +1,12 @@
+import { site } from './site'
+
 export type Service = {
   slug: string
   name: string
   short: string
   blurb: string
   image?: string
+  videoUrl?: string
 }
 
 export const services: Service[] = [
@@ -37,6 +40,7 @@ export const services: Service[] = [
     short: 'Seasonal light installation for South Jersey homes.',
     blurb:
       'Leading Edge Finishings advertises custom Christmas light installation for South Jersey homes. Contact the team about seasonal availability.',
+    videoUrl: site.facebookVideoUrl,
   },
 ]
 

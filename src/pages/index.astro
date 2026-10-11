@@ -21,9 +21,9 @@ const description = 'Leading Edge Finishings is a licensed and insured home-impr
     <div class="mx-auto grid max-w-7xl items-center gap-y-12 px-5 pb-20 pt-14 lg:grid-cols-12 lg:gap-x-10 lg:px-8 lg:pb-28 lg:pt-20">
       <div class="relative z-10 lg:col-span-6">
         <p class="tag rise flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-45"><span>{site.license}</span><span aria-hidden="true" class="h-1 w-1 bg-ochre"></span><span>{site.address}</span><span aria-hidden="true" class="h-1 w-1 bg-ochre"></span><span>Est. {site.founded}</span></p>
-        <h1 class="rise mt-6 text-[clamp(2.75rem,7.2vw,5.25rem)]">{site.shortName}</h1>
-        <p class="rise mt-4 max-w-lg font-display text-2xl font-bold text-ochre" style="animation-delay: 80ms">{site.tagline}</p>
-        <p class="rise mt-6 max-w-lg text-lg leading-relaxed text-ink-70 sm:text-xl" style="animation-delay: 160ms">Interior and exterior home improvements, with bathroom and basement projects featured in the company gallery. Custom holiday-light installation is also available seasonally.</p>
+        <h1 class="rise mt-6 text-[clamp(2.75rem,7.2vw,5.25rem)]">Home improvements in Woodbury, NJ</h1>
+        <p class="rise mt-4 max-w-lg font-display text-2xl font-bold text-ochre" style="animation-delay: 80ms">Interior and exterior work for South Jersey homes.</p>
+        <p class="rise mt-6 max-w-lg text-lg leading-relaxed text-ink-70 sm:text-xl" style="animation-delay: 160ms">Explore bathroom and basement projects in the gallery, with before-and-after examples from the company portfolio.</p>
         <div class="rise mt-9 flex flex-wrap items-center gap-4" style="animation-delay: 240ms">
           <Button href="/contact">Contact the team<ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></Button>
           <Button href="/projects" variant="outline">View project photos</Button>
@@ -52,9 +52,27 @@ const description = 'Leading Edge Finishings is a licensed and insured home-impr
 
   <section class="border-y-2 border-ink bg-spruce text-paper"><div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-8 lg:py-20">
     <div><Eyebrow tone="chalk">Seasonal service</Eyebrow><h2 class="text-4xl text-paper sm:text-5xl">Custom holiday lighting.</h2><p class="mt-5 max-w-lg leading-relaxed text-paper-3">See the holiday-light installation Reel shared by Leading Edge Finishings.</p><a href="/services/holiday-lighting" class="group mt-7 inline-flex items-center gap-2 font-display font-bold text-ochre-bright">About holiday lighting<ArrowRight class="h-4 w-4 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a></div>
-    <div class="flex justify-center lg:justify-end"><div id="fb-root"></div><div class="fb-video" data-href={site.facebookVideoUrl} data-width="500" data-allowfullscreen="true" data-show-text="false"><div class="fb-xfbml-parse-ignore"><blockquote cite={site.facebookVideoUrl}><a href={site.facebookVideoUrl}>Watch the Leading Edge Finishings holiday-lighting Reel</a></blockquote></div></div></div>
+    <div id="holiday-video" class="flex w-full min-w-0 justify-center lg:justify-end"><div id="fb-root"></div><div class="fb-video w-full max-w-125" data-href={site.facebookVideoUrl} data-width="500" data-allowfullscreen="true" data-show-text="false"><div class="fb-xfbml-parse-ignore"><blockquote cite={site.facebookVideoUrl}><a href={site.facebookVideoUrl}>Watch the Leading Edge Finishings holiday-lighting Reel</a></blockquote></div></div></div>
   </div><p class="mx-auto max-w-7xl px-5 pb-5 text-sm text-paper-3 lg:px-8">Trouble viewing? <a href={site.facebookVideoUrl} target="_blank" rel="noreferrer" class="underline decoration-ochre-bright underline-offset-4">Open the video on Facebook</a>.</p></section>
   <script is:inline async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v23.0"></script>
+
+  <style is:global>
+    #holiday-video .fb-video,
+    #holiday-video .fb-video > span,
+    #holiday-video .fb-video iframe {
+      max-width: 100%;
+      width: 100% !important;
+    }
+
+    #holiday-video .fb-video > span {
+      display: block;
+    }
+
+    #holiday-video .fb-video iframe {
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+    }
+  </style>
 
   <section class="border-y-2 border-ink bg-paper-2"><div class="mx-auto max-w-7xl px-5 py-20 lg:px-8 lg:py-28"><div class="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end"><div><Eyebrow>Project gallery</Eyebrow><h2 class="max-w-2xl text-4xl sm:text-5xl lg:text-6xl">Before and after, from the portfolio.</h2><p class="mt-5 max-w-xl leading-relaxed text-ink-70">Room and outdoor projects shown with their original paired photos.</p></div><a href="/projects" class="group inline-flex items-center gap-2 font-display text-lg font-bold text-ochre">All project photos<ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></a></div><div class="mt-12 grid gap-6 md:grid-cols-2">{projects.slice(0, 4).map((project) => <ProjectCard project={project} />)}</div></div></section>
 
