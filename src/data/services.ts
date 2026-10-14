@@ -15,7 +15,7 @@ export const services: Service[] = [
     name: 'Interior & exterior improvements',
     short: 'A contemporary side of home improvement.',
     blurb:
-      'Leading Edge Finishings describes its work as interior and exterior home improvements. Share the details of your project to discuss the right scope.',
+      'Give your home a fresh perspective with thoughtful improvements inside and out. Tell us what you have in mind, and we can talk through a scope that fits your space and priorities.',
     image: '/img/facebook-basement-before-after.jpg',
   },
   {
@@ -23,7 +23,7 @@ export const services: Service[] = [
     name: 'Bathroom updates',
     short: 'A refreshed bathroom, from fixtures to finishes.',
     blurb:
-      'A bathroom update appears in the company photo gallery, including a white vanity, black fixtures, a framed mirror, and muted blue walls.',
+      'Bring a cleaner, more considered feel to your bathroom. Updated fixtures, a fresh vanity, and carefully chosen finishes can make the room feel more polished and inviting.',
     image: '/img/facebook-bathroom.jpg',
   },
   {
@@ -31,7 +31,7 @@ export const services: Service[] = [
     name: 'Basement improvements',
     short: 'A basement media-wall transformation.',
     blurb:
-      'The company gallery shows a basement before and after, with a completed media wall, recessed ceiling lights, and refreshed finishes.',
+      'Make more of the space you already have. A refreshed basement with a media wall, recessed lighting, and updated finishes can become a more welcoming place to unwind and spend time together.',
     image: '/img/facebook-basement-before-after.jpg',
   },
   {
@@ -39,7 +39,7 @@ export const services: Service[] = [
     name: 'Custom holiday lighting',
     short: 'Seasonal light installation for South Jersey homes.',
     blurb:
-      'Leading Edge Finishings advertises custom Christmas light installation for South Jersey homes. Contact the team about seasonal availability.',
+      'Bring a little extra sparkle to the season with custom holiday-light installation for your South Jersey home. Reach out to discuss your display and seasonal availability.',
     videoUrl: site.facebookVideoUrl,
   },
 ]
