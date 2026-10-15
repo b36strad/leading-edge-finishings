@@ -14,7 +14,7 @@ Improve the Leading Edge Finishings homepage using the findings and priorities i
 - Intended homepage: `src/pages/index.astro`
 - Related components, styles, and data: inspect only as needed to implement and verify homepage changes.
 
-There is no root-level `index.html` in this project. `Website-Scorecard/index.html` launches a separate scorecard tool; do not edit it or mistake it for the business homepage. If the project structure has changed, trace the homepage route and confirm the actual page before editing.
+There is no root-level `index.html` in this project. `Tools & Docs/Website-Scorecard/index.html` launches a separate scorecard tool; do not edit it or mistake it for the business homepage. If the project structure has changed, trace the homepage route and confirm the actual page before editing.
 
 ### Instructions
 
