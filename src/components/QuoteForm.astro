@@ -11,7 +11,7 @@ const labelClass = 'tag mb-2 block text-ink-45'
 const fieldClass = 'w-full border-2 border-ink/20 bg-chalk px-4 py-3 font-body text-[0.95rem] text-ink transition-colors placeholder:text-ink-45/60 hover:border-ink/40 focus:border-ochre focus:outline-none'
 ---
 
-<form data-quote-form data-email={site.email} novalidate class="border-2 border-ink bg-chalk p-6 shadow-lift sm:p-9">
+<form data-quote-form action="/send-inquiry.php" method="post" novalidate class="border-2 border-ink bg-chalk p-6 shadow-lift sm:p-9">
   <div class="grid gap-5 sm:grid-cols-2">
     <div><label for="name" class={labelClass}>Your name</label><input class={fieldClass} id="name" name="name" required minlength="2" autocomplete="name" placeholder="Your name" /><p data-error-for="name" hidden class="mt-1.5 font-mono text-xs text-ochre">Tell us who to ask for.</p></div>
     <div><label for="email" class={labelClass}>Email</label><input class={fieldClass} id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" /><p data-error-for="email" hidden class="mt-1.5 font-mono text-xs text-ochre">We need a working email for the proposal.</p></div>
@@ -24,19 +24,22 @@ const fieldClass = 'w-full border-2 border-ink/20 bg-chalk px-4 py-3 font-body t
   </div>
   <div class="mt-5"><label for="details" class={labelClass}>Tell us about the project</label><textarea class={`${fieldClass} min-h-36 resize-y`} id="details" name="details" required minlength="12" placeholder="Age of the house, what is bothering you, what you have already tried, and anything you have already picked out."></textarea><p data-error-for="details" hidden class="mt-1.5 font-mono text-xs text-ochre">A sentence or two about the project helps us quote it.</p></div>
   <button type="submit" class="group mt-7 inline-flex w-full items-center justify-center gap-2.5 bg-ochre px-8 py-4 font-display text-lg font-bold text-chalk shadow-[4px_4px_0_0_var(--color-ink)] transition-all hover:-translate-y-0.5 hover:bg-ochre-bright hover:shadow-[6px_6px_0_0_var(--color-ink)] disabled:cursor-wait disabled:opacity-70 sm:w-auto">
-    <span>Prepare project request <ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></span>
+    <span>Send project request <ArrowRight class="h-5 w-5 transition-transform group-hover:translate-x-1" stroke-width={2.5} aria-hidden="true" /></span>
   </button>
   <p class="mt-4 font-mono text-xs text-ink-45">Your details will be used to respond to this project request.</p>
-  <p data-form-email-status hidden aria-live="polite" class="mt-4 border-l-4 border-spruce bg-spruce/10 px-4 py-3 text-sm text-ink">Your email app should open with the request ready to send. If it does not, email <a class="underline" href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <p data-form-status hidden role="status" aria-live="polite" class="mt-4 border-l-4 border-spruce bg-spruce/10 px-4 py-3 text-sm text-ink"><span data-form-status-message></span> <a data-form-fallback hidden class="underline" href={`mailto:${site.email}`}>Email us instead.</a></p>
 </form>
 
 <script>
   document.querySelectorAll<HTMLFormElement>('[data-quote-form]').forEach((form) => {
-    const emailStatus = form.querySelector<HTMLElement>('[data-form-email-status]')
+    const status = form.querySelector<HTMLElement>('[data-form-status]')
+    const statusMessage = form.querySelector<HTMLElement>('[data-form-status-message]')
+    const fallbackLink = form.querySelector<HTMLElement>('[data-form-fallback]')
+    const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]')
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault()
-      if (emailStatus) emailStatus.hidden = true
+      if (status) status.hidden = true
       const data = new FormData(form)
       const values = Object.fromEntries(data.entries())
       const errors: Record<string, boolean> = {
@@ -61,14 +64,29 @@ const fieldClass = 'w-full border-2 border-ink/20 bg-chalk px-4 py-3 font-body t
         return
       }
 
-      const body = Array.from(data.entries())
-        .filter((entry): entry is [string, string] => typeof entry[1] === 'string')
-        .map(([name, value]) => `${name}: ${value}`)
-        .join('\n')
-      const subject = `Project request from ${String(values.name).trim()}`
-      const recipient = form.dataset.email
-      if (emailStatus) emailStatus.hidden = false
-      if (recipient) window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      if (submitButton) submitButton.disabled = true
+      if (status) status.hidden = false
+      if (statusMessage) statusMessage.textContent = 'Sending your request…'
+      if (fallbackLink) fallbackLink.hidden = true
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        })
+        const result = await response.json() as { success?: boolean; message?: string }
+        if (!response.ok || !result.success) {
+          throw new Error(result.message || 'We could not send your request right now.')
+        }
+        if (statusMessage) statusMessage.textContent = result.message || 'Your request was sent.'
+        form.reset()
+      } catch {
+        if (statusMessage) statusMessage.textContent = 'We could not send your request. Please try again or '
+        if (fallbackLink) fallbackLink.hidden = false
+      } finally {
+        if (submitButton) submitButton.disabled = false
+      }
     })
   })
 </script>

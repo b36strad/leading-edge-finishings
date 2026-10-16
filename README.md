@@ -18,7 +18,11 @@ Run these from this folder:
 
 - `src/pages/` contains the home, about, contact, services, and projects routes. Service and project detail pages are generated from the data modules.
 - `src/data/` is the source of business, service, and project content.
-- `src/components/` contains shared Astro UI and the two small browser scripts for the menu, project filters, and quote form.
-- `public/img/` holds source photography, served directly as static files.
+- `src/components/` contains shared Astro UI and the small browser scripts for the menu, project filters, and quote form.
+- `public/` holds static assets and `send-inquiry.php`, which Astro copies to `dist/`.
 
-Upload the generated `dist/` directory to a static web host. Quote requests open a pre-addressed email draft. No React or TanStack runtime is used in this project.
+## Contact Form Deployment
+
+The contact form requires a PHP-enabled web host; GitHub Pages cannot run the PHP endpoint. Upload the contents of `dist/` to the host's web root. Keep `private-config/` and `PHPMailer-master/` as sibling directories outside that web root, and set the `SMTP_PASSWORD` environment variable on the host. The PHP endpoint and its private dependencies are intentionally deployed separately.
+
+No React or TanStack runtime is used in this project.
