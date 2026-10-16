@@ -62,7 +62,7 @@ try {
     $mail->Port = 465;
 
     $mail->setFrom('info@rvwebcreations.com', 'Leading Edge Finishings Website');
-    $mail->addAddress('Info@leadingedgefinishings.com', 'Leading Edge Finishings');
+    $mail->addAddress('ryanvia62@gmail.com', 'Leading Edge Finishings');
     $mail->addReplyTo($email, $name);
     $mail->isHTML(false);
     $mail->Subject = "New project inquiry from $name";

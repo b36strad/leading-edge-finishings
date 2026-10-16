@@ -1,5 +1,5 @@
 
 <?php
 return [
-    'password' => getenv('SMTP_PASSWORD') ?: '',
+    'password' => getenv('h9Q|Xav+R4/k') ?: '',
 ];
